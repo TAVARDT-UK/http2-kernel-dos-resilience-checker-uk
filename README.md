@@ -11,11 +11,6 @@ Developed and maintained by the Infrastructure Security Engineering Division of 
 
 ***
 
-## Official Portals
-
-* **Institutional Portal**: [Portal Institucional](https://ag.tavardt.com/uk/)
-* **Tools Center**: [Central de Ferramentas](https://tools.tavardt.com/uk/)
-* **Contact and Technical Support**: [Canal de Contato](https://ag.tavardt.com/uk/contact/)
 
 ***
 
