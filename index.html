@@ -1201,13 +1201,13 @@ net.core.netdev_max_backlog = 16384
 net.ipv4.tcp_rmem = 4096 87380 67108864
 net.ipv4.tcp_wmem = 4096 65536 67108864
 
-# 4. Mitigacao de exaustao de tabela de estado (nf_conntrack)
+# 4. Mitigation of state table exhaustion (nf_conntrack)
 net.netfilter.nf_conntrack_max = 524288
 net.netfilter.nf_conntrack_tcp_timeout_established = 600
 net.netfilter.nf_conntrack_tcp_timeout_close_wait = 10`,
 
-      nginx: `# nginx-http2-hardened.conf - TAVARDT Mitigacao HTTP/2 Rapid Reset (CVE-2023-44487)
-# Inclusao no bloco http {} e server {} do NGINX corporativo
+      nginx: `# nginx-http2-hardened.conf - TAVARDT HTTP/2 Rapid Reset Mitigation (CVE-2023-44487)
+# Inclusion in http {} and server {} blocks of institutional NGINX
 
 # 1. Rate limiting zones for per-IP request governance
 limit_req_zone $binary_remote_addr zone=http2_limit:20m rate=40r/s;
@@ -1241,7 +1241,7 @@ server {
     }
 }`,
 
-      nftables: `# nftables-dos-protection.conf - TAVARDT Filtragem L4 de Pacotes e Mitigacao DoS
+      nftables: `# nftables-dos-protection.conf - TAVARDT L4 Packet Filtering & DoS Mitigation
 # Apply with: nft -f /etc/nftables/tavardt-dos-filter.nft
 
 table inet tavardt_filter {
@@ -1256,7 +1256,7 @@ table inet tavardt_filter {
         # Drop IPs in temporary blacklist
         ip saddr @denylist drop
 
-        # Mitigacao de inundacao de pacotes TCP RST e SYN anormais
+        # Mitigation of abnormal TCP RST and SYN flood packets
         tcp flags & (rst|ack) == rst limit rate over 50/second add @denylist { ip saddr timeout 10m } drop
         tcp flags syn tcp flags & (fin|syn|rst|ack) == syn limit rate over 100/second burst 150 packets accept
     }
